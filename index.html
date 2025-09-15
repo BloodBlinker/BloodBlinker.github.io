@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSec Portfolio - Ethical Hacker</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #1e1e1e;
+            --accent-color: #00ff88;
+            --accent-secondary: #ff6b6b;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #666666;
+            --border-color: #333333;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--accent-color) !important;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-color), #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+            color: white;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Terminal Animation */
+        .terminal {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca3f; }
+
+        .terminal-title {
+            margin-left: auto;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .terminal-content {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        .typing-animation::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section .subtitle {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: translateX(0);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Blog/Writeups Section */
+        .writeup-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .writeup-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .writeup-meta {
+            background: var(--secondary-bg);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .writeup-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .writeup-category {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .writeup-content {
+            padding: 1.5rem;
+        }
+
+        .writeup-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .writeup-excerpt {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .skill-item {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
+        }
+
+        .social-link:hover {
+            color: var(--accent-color);
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .social-links {
+                gap: 1rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 136, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                &lt;RobinRoy/&gt;
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#writeups">Writeups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-content">
+                        <h1>Robin Roy<br><span>Cybersecurity Learner & Bug Bounty Hunter</span></h1>
+                        <p class="subtitle">Web security enthusiast • Vulnerability researcher • Business Central Developer</p>
+                        <p class="description">
+                            Hi! I'm Robin, a 25-year-old cybersecurity learner with a B.Tech degree and 2.4 years of professional experience. 
+                            Starting from IT support to Business Central development, I'm now passionate about web security, 
+                            vulnerability research, and ethical hacking. This site documents my learning journey and showcases my writeups.
+                        </p>
+                        <a href="#writeups" class="cta-button">
+                            <i class="fas fa-code me-2"></i>
+                            Explore My Journey
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <div class="terminal-dot dot-red"></div>
+                                <div class="terminal-dot dot-yellow"></div>
+                                <div class="terminal-dot dot-green"></div>
+                            </div>
+                            <div class="terminal-title">terminal</div>
+                        </div>
+                        <div class="terminal-content">
+                            <div>$ whoami</div>
+                            <div style="color: #b0b0b0;">robin_roy</div>
+                            <div style="margin-top: 10px;">$ cat experience.txt</div>
+                            <div style="color: #ff6b6b;">• Business Central Developer (1.4 years)</div>
+                            <div style="color: #667eea;">• IT Support Technician (1 year)</div>
+                            <div style="color: #00ff88;">• Web Security Learning</div>
+                            <div style="color: #ffd93d;">• Bug Bounty Hunting</div>
+                            <div style="margin-top: 10px;" class="typing-animation">$ learning_cybersecurity...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2>About My Journey</h2>
+            <p class="subtitle">From IT support to cybersecurity - my learning path</p>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Developer Background</h3>
+                        <p>Currently working as a Business Central Developer with 1.4 years of experience, building on 1 year of IT support experience. This technical foundation helps me understand application architecture and potential security flaws.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Continuous Learning</h3>
+                        <p>B.Tech graduate passionate about cybersecurity. Currently expanding my knowledge through hands-on practice, online courses, and real-world vulnerability research to transition into cybersecurity.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <h3>Bug Bounty Focus</h3>
+                        <p>Actively participating in bug bounty programs to gain practical experience in vulnerability discovery. Documenting my findings and learning process through detailed writeups and tutorials.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2>Skills & Learning</h2>
+            <p class="subtitle">Building expertise through practical experience and continuous learning</p>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="skill-name">Web Security</div>
+                    <div class="skill-description">OWASP Top 10, XSS, SQLi, CSRF</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <div class="skill-name">Bug Bounty</div>
+                    <div class="skill-description">Vulnerability Research, Reporting</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="skill-name">Development</div>
+                    <div class="skill-description">Business Central, AL, C/AL</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="skill-name">Security Tools</div>
+                    <div class="skill-description">Burp Suite, OWASP ZAP, Nmap</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="skill-name">IT Support</div>
+                    <div class="skill-description">System Administration, Troubleshooting</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="skill-name">OSINT</div>
+                    <div class="skill-description">Reconnaissance, Information Gathering</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Writeups Section -->
+    <section id="writeups" class="section">
+        <div class="container">
+            <h2>Learning Writeups</h2>
+            <p class="subtitle">Documenting my cybersecurity learning journey and findings</p>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="writeup-card">
+                        <div class="writeup-meta">
+                            <span class="writeup-date">2025-09-10</span>
+                            <span class="writeup-category">Web Security</span>
+                        </div>
+                        <div class="writeup-content">
+                            <h3 class="writeup-title">My First XSS Discovery - Learning Experience</h3>
+                            <p class="writeup-excerpt">
+                                A detailed walkthrough of discovering my first XSS vulnerability during a bug bounty hunt. 
+                                This writeup covers the methodology, tools used, and lessons learned from the experience.
+                            </p>
+                            <a href="#" class="read-more">
+                                Read More <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="writeup-card">
+                        <div class="writeup-meta">
+                            <span class="writeup-date">2025-09-05</span>
+                            <span class="writeup-category">Network</span>
+                        </div>
+                        <div class="writeup-content">
+                            <h3 class="writeup-title">Business Central Security Analysis</h3>
+                            <p class="writeup-excerpt">
+                                Leveraging my development experience to analyze security aspects of Microsoft Business Central. 
+                                Exploring common misconfigurations and security best practices for ERP systems.
+                            </p>
+                            <a href="#" class="read-more">
+                                Read More <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="writeup-card">
+                        <div class="writeup-meta">
+                            <span class="writeup-date">2025-08-28</span>
+                            <span class="writeup-category">Mobile</span>
+                        </div>
+                        <div class="writeup-content">
+                            <h3 class="writeup-title">Web Application Reconnaissance Guide</h3>
+                            <p class="writeup-excerpt">
+                                A beginner-friendly guide to web application reconnaissance techniques. 
+                                Covers tools, methodologies, and manual testing approaches I've learned during my journey.
+                            </p>
+                            <a href="#" class="read-more">
+                                Read More <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="writeup-card">
+                        <div class="writeup-meta">
+                            <span class="writeup-date">2025-08-20</span>
+                            <span class="writeup-category">Cloud</span>
+                        </div>
+                        <div class="writeup-content">
+                            <h3 class="writeup-title">Setting Up My Bug Bounty Lab</h3>
+                            <p class="writeup-excerpt">
+                                Documentation of my home lab setup for practicing web security testing. 
+                                Includes vulnerable applications, tools configuration, and learning resources I use daily.
+                            </p>
+                            <a href="#" class="read-more">
+                                Read More <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#" class="cta-button">
+                    <i class="fas fa-book me-2"></i>
+                    View All Learning Notes
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2>Connect With Me</h2>
+            <p class="subtitle">Let's learn and grow together in cybersecurity</p>
+            <div class="social-links">
+                <a href="#" class="social-link" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-link" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" class="social-link" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="#" class="social-link" title="HackerOne">
+                    <i class="fas fa-bug"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Robin Roy. Documenting my cybersecurity learning journey.</p>
+            <p class="mt-2">
+                <small>Continuous learning • Ethical practices • Security awareness</small>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Terminal typing animation
+        const terminalText = document.querySelector('.typing-animation');
+        const commands = [
+            '$ nmap -sC -sV target.com',
+            '$ burpsuite --target webapp',
+            '$ gobuster dir -u target.com',
+            '$ sqlmap --batch --dbs',
+            '$ learning_cybersecurity...'
+        ];
+        let currentCommand = 0;
+
+        function typeCommand() {
+            const command = commands[currentCommand];
+            terminalText.textContent = '';
+            
+            let i = 0;
+            const typeInterval = setInterval(() => {
+                terminalText.textContent = command.substring(0, i + 1);
+                i++;
+                
+                if (i >= command.length) {
+                    clearInterval(typeInterval);
+                    setTimeout(() => {
+                        currentCommand = (currentCommand + 1) % commands.length;
+                        typeCommand();
+                    }, 2000);
+                }
+            }, 100);
+        }
+
+        // Start typing animation
+        setTimeout(typeCommand, 1000);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter',
