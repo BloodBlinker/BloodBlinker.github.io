@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Basics - CyberSec Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --card-bg: #1e1e1e;
+            --accent-color: #00ff88;
+            --accent-secondary: #ff6b6b;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #666666;
+            --border-color: #333333;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --glow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--accent-color) !important;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section .subtitle {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        /* Breadcrumb/Back link */
+        .back-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            color: white;
+            text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+            transform: translateX(-5px);
+        }
+
+        /* Accordion Customization */
+        .accordion-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+            border-radius: 10px !important;
+            overflow: hidden;
+        }
+        .accordion-button {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: none !important;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: var(--secondary-bg);
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .accordion-button::after {
+            filter: invert(1);
+        }
+        .accordion-button:not(.collapsed)::after {
+            filter: invert(70%) sepia(80%) saturate(400%) hue-rotate(90deg);
+        }
+        .accordion-body {
+            color: var(--text-secondary);
+            background-color: var(--primary-bg);
+            padding: 1.5rem;
+        }
+        .command-block {
+            background-color: var(--secondary-bg);
+            border-left: 3px solid var(--accent-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .command-block:last-child {
+            margin-bottom: 0;
+        }
+        .command-title {
+            color: var(--accent-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+        .command-desc {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        .command-syntax {
+            background-color: rgba(0,0,0,0.5);
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-secondary);
+            margin-bottom: 0.8rem;
+            border: 1px solid #333;
+        }
+        .command-examples {
+            background-color: rgba(0,0,0,0.3);
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            border: 1px solid #333;
+            margin-bottom: 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 4rem;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 136, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                &lt;RobinRoy/&gt;
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#writeups">Writeups</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Section -->
+    <section class="section" style="padding-top: 120px;">
+        <div class="container">
+            <a href="index.html#writeups" class="back-link"><i class="fas fa-arrow-left me-2"></i>Back to Writeups</a>
+            
+            <h2 style="text-align: left; margin-bottom: 0.5rem;">Linux Basics</h2>
+            <p class="subtitle" style="text-align: left; margin-bottom: 3rem;">Essential commands, navigation, file management, and utilities.</p>
+            
+            <div class="accordion" id="linuxBasicsAccordion">
+                
+                <!-- Topic 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            1. NAVIGATION
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#linuxBasicsAccordion">
+                        <div class="accordion-body">
+                            
+                            <div class="command-block">
+                                <span class="command-title">pwd &mdash; Print Working Directory</span>
+                                <div class="command-desc">Shows the full path of the folder you are currently in.</div>
+                                <div class="command-syntax">Syntax: pwd</div>
+                                <div class="command-examples">Example: /home/user/Documents</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">cd &mdash; Change Directory</span>
+                                <div class="command-desc">Move into another folder.</div>
+                                <div class="command-syntax">Syntax: cd &lt;directory&gt;</div>
+                                <div class="command-examples">Examples:
+cd Documents       # go into the Documents folder
+cd ..              # go one folder back (parent folder)
+cd ~               # go to your home directory</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            2. LISTING &amp; VIEWING
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#linuxBasicsAccordion">
+                        <div class="accordion-body">
+
+                            <div class="command-block">
+                                <span class="command-title">ls &mdash; List Directory Contents</span>
+                                <div class="command-desc">Lists files and folders in the current directory. Use -al to see hidden files and detailed info (permissions, size, owner).</div>
+                                <div class="command-syntax">Syntax: ls
+        ls -al</div>
+                                <div class="command-examples">Examples:
+ls             # basic list
+ls -al         # detailed list including hidden files</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">cat &mdash; View File Contents</span>
+                                <div class="command-desc">Displays the contents of a file directly in the terminal.</div>
+                                <div class="command-syntax">Syntax: cat &lt;filename&gt;</div>
+                                <div class="command-examples">Example: cat test.txt</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">man &mdash; Manual / Help</span>
+                                <div class="command-desc">Opens the built-in manual page for any command. Press q to exit.</div>
+                                <div class="command-syntax">Syntax: man &lt;command&gt;</div>
+                                <div class="command-examples">Example: man ls        # opens the manual for ls</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            3. FILE &amp; FOLDER MANAGEMENT
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#linuxBasicsAccordion">
+                        <div class="accordion-body">
+
+                            <div class="command-block">
+                                <span class="command-title">mkdir &mdash; Make Directory</span>
+                                <div class="command-desc">Creates a new folder.</div>
+                                <div class="command-syntax">Syntax: mkdir &lt;foldername&gt;</div>
+                                <div class="command-examples">Example: mkdir projects</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">rmdir &mdash; Remove Directory</span>
+                                <div class="command-desc">Deletes an empty folder.</div>
+                                <div class="command-syntax">Syntax: rmdir &lt;foldername&gt;</div>
+                                <div class="command-examples">Example: rmdir projects</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">echo &mdash; Write Text to a File</span>
+                                <div class="command-desc">Prints text to the terminal, or use > to write it into a file (creates the file if it doesn't exist).</div>
+                                <div class="command-syntax">Syntax: echo 'your text' &gt; filename.txt</div>
+                                <div class="command-examples">Example: echo 'hello world' &gt; test.txt</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">cp &mdash; Copy</span>
+                                <div class="command-desc">Copies a file to another location.</div>
+                                <div class="command-syntax">Syntax: cp &lt;filename&gt; &lt;destination&gt;</div>
+                                <div class="command-examples">Example: cp test.txt /home/user/backup/</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">mv &mdash; Move</span>
+                                <div class="command-desc">Moves a file to another location. Also used to rename files.</div>
+                                <div class="command-syntax">Syntax: mv &lt;filename&gt; &lt;destination&gt;</div>
+                                <div class="command-examples">Example: mv test.txt /home/user/Documents/</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">rm &mdash; Remove / Delete</span>
+                                <div class="command-desc">Permanently deletes a file. No recycle bin &mdash; be careful!</div>
+                                <div class="command-syntax">Syntax: rm &lt;filename&gt;</div>
+                                <div class="command-examples">Example: rm test.txt</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            4. SYSTEM &amp; UTILITIES
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#linuxBasicsAccordion">
+                        <div class="accordion-body">
+
+                            <div class="command-block">
+                                <span class="command-title">passwd &mdash; Change Password</span>
+                                <div class="command-desc">Changes the password for your current user account. It will prompt you for your current password, then ask for the new one.</div>
+                                <div class="command-syntax">Syntax: passwd</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">sudo apt update &amp;&amp; locate &mdash; Update &amp; Search</span>
+                                <div class="command-desc"><code>sudo apt update</code> refreshes the package list.<br><code>locate</code> searches your system for a file by name.<br>The <code>&amp;&amp;</code> means "run the second command only if the first one succeeds."</div>
+                                <div class="command-syntax">Syntax: sudo apt update &amp;&amp; locate &lt;filename&gt;</div>
+                                <div class="command-examples">Example: sudo apt update &amp;&amp; locate passwords.txt</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            5. KEYBOARD SHORTCUTS
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#linuxBasicsAccordion">
+                        <div class="accordion-body">
+
+                            <div class="command-block">
+                                <span class="command-title">Ctrl + L</span>
+                                <div class="command-desc">Clear the terminal screen (same as typing the command: <code>clear</code>)</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 6 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            6. TIPS &amp; RESOURCES
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#linuxBasicsAccordion">
+                        <div class="accordion-body">
+
+                            <div class="command-block">
+                                <span class="command-title">explainshell.com</span>
+                                <div class="command-desc">&rarr; Paste any command here to get a clear breakdown of what every part of it does. Great for commands you don't recognise.</div>
+                            </div>
+
+                            <div class="command-block">
+                                <span class="command-title">man &lt;command&gt;</span>
+                                <div class="command-desc">&rarr; Always your first stop for help. Built into Linux.</div>
+                                <div class="command-examples">Example: man cp</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Robin Roy. Documenting my cybersecurity learning journey.</p>
+            <p class="mt-2">
+                <small>Continuous learning • Ethical practices • Security awareness</small>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('scrolled');
+            } else {
+                document.querySelector('.navbar').classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
