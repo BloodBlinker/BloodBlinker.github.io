@@ -7,7 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --primary-bg: #0a0a0a;
@@ -44,7 +44,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
@@ -230,225 +230,413 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Sections */
+        /* Sections Shared */
         .section {
             padding: 100px 0;
             position: relative;
         }
 
-        .section h2 {
+        .section-title {
             font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-align: center;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-align: left;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
         }
 
         .section .subtitle {
+            text-align: left;
             color: var(--text-secondary);
-            text-align: center;
-            margin-bottom: 4rem;
             font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
         }
 
-        /* Cards */
-        .card {
+        /* About Section (Timeline & Narrative) */
+        .about-narrative {
+            padding-right: 2rem;
+        }
+
+        .narrative-heading {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .about-narrative p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            flex: 1;
+            transition: transform 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -39px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--border-color);
+            border: 2px solid var(--primary-bg);
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover .timeline-dot,
+        .timeline-item.active .timeline-dot {
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Bento Box Grid (Skills) */
+        .bento-layout {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-auto-rows: minmax(160px, auto);
+            gap: 1.5rem;
+        }
+
+        .bento-box {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 2rem;
-            height: 100%;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .card::before {
+        .bento-box::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--gradient);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.03), transparent 70%);
+            pointer-events: none;
         }
 
-        .card:hover::before {
-            transform: translateX(0);
-        }
-
-        .card:hover {
+        .bento-box:hover {
             transform: translateY(-5px);
-            border-color: rgba(0, 255, 136, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(0, 255, 136, 0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient);
-            border-radius: 15px;
-            display: flex;
+        .bento-large {
+            grid-column: span 3;
+            grid-row: span 2;
+        }
+
+        .bento-medium {
+            grid-column: span 3;
+            grid-row: span 1;
+        }
+
+        .bento-small {
+            grid-column: span 2;
+            grid-row: span 1;
+            padding: 1.5rem;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            color: white;
+            text-align: center;
         }
 
-        .card h3 {
+        .bento-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1.2rem;
+            display: inline-block;
+        }
+
+        .bento-icon-lg {
+            font-size: 2.5rem;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .bento-box:hover .bento-icon-lg {
+            color: var(--accent-secondary);
+        }
+
+        .bento-content h3 {
             font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
+            margin-bottom: 0.8rem;
         }
 
-        .card p {
+        .bento-small .bento-content h4 {
+            font-size: 1rem;
+            font-weight: 500;
             color: var(--text-secondary);
-            line-height: 1.7;
         }
 
-        /* Blog/Writeups Section */
-        .writeup-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
+        .bento-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0;
         }
 
-        .writeup-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(0, 255, 136, 0.3);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .writeup-meta {
-            background: var(--secondary-bg);
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
+        .bento-tags {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
-        .writeup-date {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .writeup-category {
+        .bento-tag {
             background: rgba(0, 255, 136, 0.1);
             color: var(--accent-color);
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        .writeup-content {
-            padding: 1.5rem;
-        }
-
-        .writeup-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: var(--text-primary);
-        }
-
-        .writeup-excerpt {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .read-more {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .read-more:hover {
-            color: var(--accent-color);
-            text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
-        }
-
-        /* Skills Grid */
-        .skills-grid {
+        /* Article Grid (Writeups) */
+        .article-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
-        .skill-item {
-            text-align: center;
-            padding: 2rem 1rem;
+        .article-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 15px;
-            transition: all 0.3s ease;
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .skill-item:hover {
-            border-color: rgba(0, 255, 136, 0.3);
-            transform: translateY(-3px);
+        .article-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 136, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .skill-icon {
-            font-size: 2.5rem;
+        .article-img {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .article-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .article-card:hover .article-img img {
+            transform: scale(1.08);
+        }
+
+        .article-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--card-bg) 0%, transparent 100%);
+            opacity: 0.9;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            margin-top: -30px;
+        }
+
+        .article-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             color: var(--accent-color);
-            margin-bottom: 1rem;
-        }
-
-        .skill-name {
+            margin-bottom: 0.8rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
         }
 
-        .skill-description {
+        .article-title {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .article-card:hover .article-title {
+            color: var(--accent-color);
+        }
+
+        .article-excerpt {
             color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .read-more-btn {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .article-card:hover .read-more-btn {
+            color: var(--accent-color);
+            transform: translateX(5px);
         }
 
         /* Contact Section */
-        .contact {
-            background: var(--secondary-bg);
-            border-top: 1px solid var(--border-color);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .social-link {
-            width: 60px;
-            height: 60px;
-            background: var(--card-bg);
+        .contact-banner {
+            background: linear-gradient(145deg, var(--card-bg), var(--secondary-bg));
             border: 1px solid var(--border-color);
-            border-radius: 15px;
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .contact-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            animation: pulse-glow 10s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .social-icon-btn {
+            width: 55px;
+            height: 55px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
+            color: var(--text-primary);
             font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(5px);
         }
 
-        .social-link:hover {
-            color: var(--accent-color);
-            border-color: rgba(0, 255, 136, 0.3);
-            transform: translateY(-3px);
-            box-shadow: var(--glow);
+        .social-icon-btn:hover {
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
+            border-color: var(--accent-color);
         }
 
         /* Footer */
@@ -461,52 +649,36 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 992px) {
+            .bento-large, .bento-medium { grid-column: span 6; }
+            .bento-small { grid-column: span 2; }
+            .about-narrative { padding-right: 0; margin-bottom: 3rem; }
+        }
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section {
-                padding: 60px 0;
-            }
-            
-            .social-links {
-                gap: 1rem;
-            }
-            
-            .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 1rem;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .section { padding: 60px 0; }
+            .section-title, .section .subtitle { text-align: center; margin-left: auto; margin-right: auto; }
+            .section-title::after { left: 50%; transform: translateX(-50%); }
+            .contact-banner { padding: 3rem 1.5rem; }
+            .stats-row { flex-direction: column; gap: 1rem; }
+            .bento-small { grid-column: span 3; }
+        }
+        @media (max-width: 576px) {
+            .bento-small { grid-column: span 6; }
+            .social-links { flex-wrap: wrap; justify-content: center; }
         }
 
         /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--primary-bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-color);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 255, 136, 0.8);
-        }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--primary-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
     </style>
 </head>
 <body>
     <div class="bg-pattern"></div>
-    
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -547,9 +719,8 @@
                         <h1>Robin Roy<br><span>Cybersecurity Learner & Bug Bounty Hunter</span></h1>
                         <p class="subtitle">Web security enthusiast • Vulnerability researcher • Business Central Developer</p>
                         <p class="description">
-                            Hi! I'm Robin, a 25-year-old cybersecurity learner with a B.Tech degree and 2.4 years of professional experience. 
-                            Starting from IT support to Business Central development, I'm now passionate about web security, 
-                            vulnerability research, and ethical hacking. This site documents my learning journey and showcases my writeups.
+                            Hi! I'm Robin, a 25-year-old B.Tech graduate and Business Central Developer with over 2.5 years of experience.
+                            While I value my foundation in software development, my true passion lies in Cybersecurity. To me, traditional dev work feels like walking on a flat road, whereas security feels like climbing a mountain. This portfolio documents my dedicated, daily journey into web and blockchain security.
                         </p>
                         <a href="#writeups" class="cta-button">
                             <i class="fas fa-code me-2"></i>
@@ -571,11 +742,11 @@
                             <div>$ whoami</div>
                             <div style="color: #b0b0b0;">robin_roy</div>
                             <div style="margin-top: 10px;">$ cat experience.txt</div>
-                            <div style="color: #ff6b6b;">• Business Central Developer (1.4 years)</div>
-                            <div style="color: #667eea;">• IT Support Technician (1 year)</div>
-                            <div style="color: #00ff88;">• Web Security Learning</div>
-                            <div style="color: #ffd93d;">• Bug Bounty Hunting</div>
-                            <div style="margin-top: 10px;" class="typing-animation">$ learning_cybersecurity...</div>
+                            <div style="color: #ff6b6b;">• Business Central Developer (2.5+ years)</div>
+                            <div style="color: #667eea;">• Preparing for Computer Networks exam</div>
+                            <div style="color: #00ff88;">• Cybersecurity Learner</div>
+                            <div style="color: #ffd93d;">• Web & Blockchain Security Enthusiast</div>
+                            <div style="margin-top: 10px;" class="typing-animation">$ init_hacking_routine...</div>
                         </div>
                     </div>
                 </div>
@@ -586,34 +757,46 @@
     <!-- About Section -->
     <section id="about" class="section">
         <div class="container">
-            <h2>About My Journey</h2>
-            <p class="subtitle">From IT support to cybersecurity - my learning path</p>
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-code"></i>
+            <h2 class="section-title">About My Journey</h2>
+            <p class="subtitle">The transition from a flat road to climbing the cybersecurity mountain.</p>
+            <div class="row g-5 align-items-center mt-4">
+                <div class="col-lg-6">
+                    <div class="about-narrative">
+                        <h3 class="narrative-heading">Driven by the Challenge</h3>
+                        <p>I am Robin, a 25-year-old with over 2.5 years of experience building solutions as a Business Central Developer. While software development shaped my logical foundation, it felt too much like walking on a flat, predictable road.</p>
+                        <p>Cybersecurity, however, feels like climbing a mountain. I thrive on the challenge of discovering vulnerabilities, exploring low-level mechanics, and continuously overcoming intellectual hurdles.</p>
+                        <div class="stats-row">
+                            <div class="stat-box">
+                                <span class="stat-number">2.5+</span>
+                                <span class="stat-label">Years Dev Exp</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number">Daily</span>
+                                <span class="stat-label">Bug Bounty Focus</span>
+                            </div>
                         </div>
-                        <h3>Developer Background</h3>
-                        <p>Currently working as a Business Central Developer with 1.4 years of experience, building on 1 year of IT support experience. This technical foundation helps me understand application architecture and potential security flaws.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-graduation-cap"></i>
+                <div class="col-lg-6">
+                    <div class="timeline-container">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">2022</div>
+                            <h4>B.Tech Graduate</h4>
+                            <p>Completed engineering foundation. (High priority: clearing final Computer Networks exam in April 2026).</p>
                         </div>
-                        <h3>Continuous Learning</h3>
-                        <p>B.Tech graduate passionate about cybersecurity. Currently expanding my knowledge through hands-on practice, online courses, and real-world vulnerability research to transition into cybersecurity.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-bug"></i>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">2023 - Present</div>
+                            <h4>Business Central Developer</h4>
+                            <p>Implementing client solutions. Gaining strong software architecture and application logic skills.</p>
                         </div>
-                        <h3>Bug Bounty Focus</h3>
-                        <p>Actively participating in bug bounty programs to gain practical experience in vulnerability discovery. Documenting my findings and learning process through detailed writeups and tutorials.</p>
+                        <div class="timeline-item active">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">Now</div>
+                            <h4>The Cybersecurity Pivot</h4>
+                            <p>Actively restructuring daily routine, studying Web & Blockchain Security, and pursuing Bug Bounty hunting.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -623,50 +806,72 @@
     <!-- Skills Section -->
     <section id="skills" class="section">
         <div class="container">
-            <h2>Skills & Learning</h2>
-            <p class="subtitle">Building expertise through practical experience and continuous learning</p>
-            <div class="skills-grid">
-                <div class="skill-item">
-                    <div class="skill-icon">
-                        <i class="fas fa-globe"></i>
+            <h2 class="section-title">Technical Arsenal</h2>
+            <p class="subtitle">A structured approach to mastering modern security.</p>
+
+            <div class="bento-layout mt-4">
+                <!-- Large Feature Box -->
+                <div class="bento-box bento-large feature-box">
+                    <div class="bento-content">
+                        <i class="fas fa-shield-alt bento-icon"></i>
+                        <h3>Practical Ethical Hacking</h3>
+                        <p>Mastering real-world methodology: Reconnaissance, Info Gathering, Scanning & Enumeration, Exploitation, and Post-Exploitation. Building skills in Web App Penetration Testing and Wireless Attacks.</p>
+                        <div class="bento-tags mt-3">
+                            <span class="bento-tag">Methodology</span>
+                            <span class="bento-tag">Enumeration</span>
+                            <span class="bento-tag">Web Apps</span>
+                            <span class="bento-tag">Report Writing</span>
+                        </div>
                     </div>
-                    <div class="skill-name">Web Security</div>
-                    <div class="skill-description">OWASP Top 10, XSS, SQLi, CSRF</div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-icon">
-                        <i class="fas fa-bug"></i>
+
+                <!-- Medium Boxes -->
+                <div class="bento-box bento-medium focus-box">
+                    <div class="bento-content">
+                        <i class="fab fa-linux bento-icon"></i>
+                        <h3>Linux 100: Fundamentals</h3>
+                        <p>Strong command-line foundation. Mastering file system navigation, user privileges, system services, and Bash scripting for task automation.</p>
+                        <div class="bento-tags mt-3">
+                            <span class="bento-tag">Bash Scripts</span>
+                            <span class="bento-tag">SysAdmin</span>
+                            <span class="bento-tag">Permissions</span>
+                        </div>
                     </div>
-                    <div class="skill-name">Bug Bounty</div>
-                    <div class="skill-description">Vulnerability Research, Reporting</div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-icon">
-                        <i class="fas fa-code"></i>
+
+                <div class="bento-box bento-medium code-box">
+                    <div class="bento-content">
+                        <i class="fab fa-python bento-icon"></i>
+                        <h3>Programming 100</h3>
+                        <p>Core tool-building in Python. Understanding data structures, handling sockets, creating reusable code, and utilizing version control (Git).</p>
+                        <div class="bento-tags mt-3">
+                            <span class="bento-tag">Python</span>
+                            <span class="bento-tag">Sockets</span>
+                            <span class="bento-tag">Git</span>
+                        </div>
                     </div>
-                    <div class="skill-name">Development</div>
-                    <div class="skill-description">Business Central, AL, C/AL</div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-icon">
-                        <i class="fas fa-tools"></i>
+
+                <!-- Small Boxes -->
+                <div class="bento-box bento-small tool-box">
+                    <div class="bento-content">
+                        <i class="fas fa-network-wired bento-icon-lg mb-2"></i>
+                        <h4>Active Directory Attacks</h4>
                     </div>
-                    <div class="skill-name">Security Tools</div>
-                    <div class="skill-description">Burp Suite, OWASP ZAP, Nmap</div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-icon">
-                        <i class="fas fa-server"></i>
+
+                <div class="bento-box bento-small tool-box">
+                    <div class="bento-content">
+                        <i class="fas fa-search bento-icon-lg mb-2"></i>
+                        <h4>OSINT & Recon</h4>
                     </div>
-                    <div class="skill-name">IT Support</div>
-                    <div class="skill-description">System Administration, Troubleshooting</div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-icon">
-                        <i class="fas fa-search"></i>
+
+                <div class="bento-box bento-small tool-box">
+                    <div class="bento-content">
+                        <i class="fas fa-tools bento-icon-lg mb-2"></i>
+                        <h4>Burp Suite</h4>
                     </div>
-                    <div class="skill-name">OSINT</div>
-                    <div class="skill-description">Reconnaissance, Information Gathering</div>
                 </div>
             </div>
         </div>
@@ -675,86 +880,64 @@
     <!-- Writeups Section -->
     <section id="writeups" class="section">
         <div class="container">
-            <h2>Learning Writeups</h2>
-            <p class="subtitle">Documenting my cybersecurity learning journey and findings</p>
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="writeup-card">
-                        <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=800&auto=format&fit=crop" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color);" alt="Linux Basics">
-                        <div class="writeup-meta">
-                            <span class="writeup-date">Notes</span>
-                            <span class="writeup-category">OS Fundamentals</span>
-                        </div>
-                        <div class="writeup-content">
-                            <h3 class="writeup-title">Linux Basics</h3>
-                            <p class="writeup-excerpt">
-                                Essential commands, navigation, file management, and utilities for navigating and controlling Linux environments.
-                            </p>
-                            <a href="linux-basics.html" class="read-more">
-                                View Topics <i class="fas fa-arrow-right ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-6 mb-4">
-                    <div class="writeup-card">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color);" alt="Programming Basics">
-                        <div class="writeup-meta">
-                            <span class="writeup-date">Notes</span>
-                            <span class="writeup-category">Development</span>
-                        </div>
-                        <div class="writeup-content">
-                            <h3 class="writeup-title">Programming Basics</h3>
-                            <p class="writeup-excerpt">
-                                Fundamental programming concepts, syntax, and logic required for scripting and automation.
-                            </p>
-                            <a href="#" class="read-more">
-                                View Topics <i class="fas fa-arrow-right ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <h2 class="section-title">Knowledge Base</h2>
+            <p class="subtitle">Documenting the climb—one concept at a time.</p>
 
-                <div class="col-lg-6 mb-4">
-                    <div class="writeup-card">
-                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color);" alt="TCM Security PEH Notes">
-                        <div class="writeup-meta">
-                            <span class="writeup-date">Notes</span>
-                            <span class="writeup-category">Ethical Hacking</span>
-                        </div>
-                        <div class="writeup-content">
-                            <h3 class="writeup-title">TCM Security PEH Notes</h3>
-                            <p class="writeup-excerpt">
-                                Comprehensive study notes from TCM Security's Practical Ethical Hacking course.
-                            </p>
-                            <a href="#" class="read-more">
-                                View Topics <i class="fas fa-arrow-right ms-1"></i>
-                            </a>
-                        </div>
+            <div class="article-grid mt-4">
+                <a href="linux-basics.html" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=800&auto=format&fit=crop" alt="Linux Basics">
+                        <div class="article-overlay"></div>
                     </div>
-                </div>
+                    <div class="article-content">
+                        <span class="article-category">OS Fundamentals</span>
+                        <h3 class="article-title">Linux Basics</h3>
+                        <p class="article-excerpt">Essential commands, navigation, file management, and utilities.</p>
+                        <span class="read-more-btn">View Notes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
 
-                <div class="col-lg-6 mb-4">
-                    <div class="writeup-card">
-                        <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?q=80&w=800&auto=format&fit=crop" style="width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color);" alt="Burp Suite Notes">
-                        <div class="writeup-meta">
-                            <span class="writeup-date">Notes</span>
-                            <span class="writeup-category">Web Security</span>
-                        </div>
-                        <div class="writeup-content">
-                            <h3 class="writeup-title">Burp Suite Notes</h3>
-                            <p class="writeup-excerpt">
-                                Techniques and methodologies for using Burp Suite in web application security testing.
-                            </p>
-                            <a href="#" class="read-more">
-                                View Topics <i class="fas fa-arrow-right ms-1"></i>
-                            </a>
-                        </div>
+                <a href="#" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop" alt="Programming Basics">
+                        <div class="article-overlay"></div>
                     </div>
-                </div>
+                    <div class="article-content">
+                        <span class="article-category">Development</span>
+                        <h3 class="article-title">Programming Basics</h3>
+                        <p class="article-excerpt">Fundamental programming concepts and logic for scripting.</p>
+                        <span class="read-more-btn">View Notes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <a href="#" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop" alt="PEH Notes">
+                        <div class="article-overlay"></div>
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Ethical Hacking</span>
+                        <h3 class="article-title">TCM Security PEH Notes</h3>
+                        <p class="article-excerpt">Study notes from TCM Security's Practical Ethical Hacking course.</p>
+                        <span class="read-more-btn">View Notes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <a href="#" class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?q=80&w=800&auto=format&fit=crop" alt="Burp Suite Notes">
+                        <div class="article-overlay"></div>
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Web Security</span>
+                        <h3 class="article-title">Burp Suite Notes</h3>
+                        <p class="article-excerpt">Techniques and methodologies for security testing.</p>
+                        <span class="read-more-btn">View Notes <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
             </div>
-            <div class="text-center mt-4">
+
+            <div class="text-center mt-5">
                 <a href="#" class="cta-button">
                     <i class="fas fa-book me-2"></i>
                     View All Learning Notes
@@ -764,26 +947,20 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section contact">
+    <section id="contact" class="section">
         <div class="container">
-            <h2>Connect With Me</h2>
-            <p class="subtitle">Let's learn and grow together in cybersecurity</p>
-            <div class="social-links">
-                <a href="#" class="social-link" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#" class="social-link" title="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="#" class="social-link" title="Twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="social-link" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="#" class="social-link" title="HackerOne">
-                    <i class="fas fa-bug"></i>
-                </a>
+            <div class="contact-banner mt-4">
+                <div class="contact-banner-content text-center">
+                    <h2 class="section-title mb-3" style="text-align: center;">Ready to Collaborate?</h2>
+                    <p class="mb-5 text-secondary" style="font-size: 1.1rem;">Always open to discussing vulnerabilities, bug bounty tips, or career opportunities.</p>
+                    <div class="social-links d-flex justify-content-center gap-4">
+                        <a href="#" class="social-icon-btn"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon-btn"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon-btn"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="social-icon-btn"><i class="fas fa-bug"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -791,7 +968,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 Robin Roy. Documenting my cybersecurity learning journey.</p>
+            <p>&copy; 2026 Robin Roy. Documenting my cybersecurity learning journey.</p>
             <p class="mt-2">
                 <small>Continuous learning • Ethical practices • Security awareness</small>
             </p>
@@ -824,12 +1001,12 @@
         function typeCommand() {
             const command = commands[currentCommand];
             terminalText.textContent = '';
-            
+
             let i = 0;
             const typeInterval = setInterval(() => {
                 terminalText.textContent = command.substring(0, i + 1);
                 i++;
-                
+
                 if (i >= command.length) {
                     clearInterval(typeInterval);
                     setTimeout(() => {
