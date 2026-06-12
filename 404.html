@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found · Robin Roy</title>
+    <meta name="robots" content="noindex">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='72' font-size='55' font-family='monospace' fill='%2300ff88' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E">
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <main class="error-page">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-title">robin@portfolio: ~</div>
+            </div>
+            <div class="terminal-body">
+                <div class="t-green">$ cd <span id="missing-path">/this-page</span></div>
+                <div class="t-red">bash: cd: no such file or directory</div>
+                <div class="error-code">404</div>
+                <div class="t-dim">The page you're looking for doesn't exist (yet).</div>
+                <div class="t-dim">Maybe it's a note I haven't written, or a path that moved.</div>
+                <div style="margin-top: 1.2rem;" class="t-green">$ cd ~ <a href="index.html" class="t-yellow" style="text-decoration: underline;">← take me home</a></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // show the actual missing path in the fake terminal
+        var el = document.getElementById('missing-path');
+        if (el && location.pathname && location.pathname !== '/') {
+            el.textContent = location.pathname;
+        }
+    </script>
+</body>
+</html>
