@@ -127,7 +127,13 @@
         if (cls) line.className = cls;
         // keep empty lines visible
         line.textContent = text || ' ';
-        term.insertBefore(line, inputLine || null);
+        // during the boot sequence the input line isn't attached yet —
+        // insertBefore with a detached reference node would throw
+        if (inputLine.parentNode === term) {
+            term.insertBefore(line, inputLine);
+        } else {
+            term.appendChild(line);
+        }
         trim();
         term.scrollTop = term.scrollHeight;
     }
