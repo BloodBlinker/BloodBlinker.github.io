@@ -76,6 +76,7 @@
             'available commands:',
             '  whoami           who is this guy?',
             '  ls notes         list my study notes',
+            '  ls apps          my open-source apps',
             '  open <note>      open a note page',
             '  cat contact.txt  how to reach me',
             '  cat certs.txt    certifications',
@@ -87,7 +88,13 @@
             'Currently studying: TCM Security curriculum'
         ],
         'ls': [
-            'notes/  skills/  certs.txt  contact.txt  experience.txt'
+            'apps/  notes/  skills/  certs.txt  contact.txt  experience.txt'
+        ],
+        'ls apps': [
+            'martial-body   24-week MMA training programme   [on F-Droid]',
+            'warrantyboxx   warranty & expiry tracker        [coming soon]',
+            '',
+            'free · open source · 100% offline · no tracking'
         ],
         'ls notes': [
             'linux-basics.md        [published]',
