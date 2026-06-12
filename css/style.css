@@ -336,7 +336,6 @@ a {
     min-height: 290px;
     max-height: 360px;
     overflow-y: auto;
-    cursor: text;
 }
 
 .terminal-body div {
@@ -351,27 +350,6 @@ a {
 .t-yellow { color: var(--t-yellow); }
 .t-blue   { color: var(--t-blue); }
 .t-green  { color: var(--accent); }
-
-.terminal-input-line {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.terminal-input-line .prompt {
-    color: var(--accent);
-}
-
-.terminal-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--text-primary);
-    font-family: var(--mono);
-    font-size: 0.88rem;
-    caret-color: var(--accent);
-}
 
 .typing-cursor::after {
     content: '▋';
