@@ -63,7 +63,7 @@
         { cmd: 'whoami' },
         { out: 'robin_roy', cls: 't-dim' },
         { cmd: 'cat experience.txt' },
-        { out: '• Business Central Developer (2.5+ yrs)', cls: 't-red' },
+        { out: '• Business Central Technical Consultant (2+ yrs)', cls: 't-red' },
         { out: '• Cybersecurity Learner', cls: 't-green' },
         { out: '• Web & Blockchain Security Enthusiast', cls: 't-yellow' },
         { out: '• Daily study & documentation habit', cls: 't-blue' },
@@ -78,15 +78,16 @@
             '  ls notes         list my study notes',
             '  open <note>      open a note page',
             '  cat contact.txt  how to reach me',
+            '  cat certs.txt    certifications',
             '  clear            clear the screen'
         ],
         whoami: [
             'robin_roy — developer climbing the cybersecurity mountain.',
-            'B.Tech graduate · Business Central Developer (2.5+ yrs)',
+            'B.Tech graduate · Business Central Technical Consultant (2+ yrs)',
             'Currently studying: TCM Security curriculum'
         ],
         'ls': [
-            'notes/  skills/  contact.txt  experience.txt'
+            'notes/  skills/  certs.txt  contact.txt  experience.txt'
         ],
         'ls notes': [
             'linux-basics.md        [published]',
@@ -98,13 +99,19 @@
         ],
         'cat contact.txt': [
             'github   : github.com/BloodBlinker',
-            'linkedin : see icons below ↓',
-            'email    : see icons below ↓'
+            'linkedin : linkedin.com/in/robin-roy-',
+            'email    : robinroy3107@gmail.com'
         ],
         'cat experience.txt': [
-            '• Business Central Developer (2.5+ yrs)',
-            '• Cybersecurity Learner',
-            '• Web & Blockchain Security Enthusiast'
+            '• Business Central Technical Consultant @ Perfecta Consulting (2024–now)',
+            '• IT Support Technician @ D Smart Technologies (2023–2024)',
+            '• Cybersecurity Learner — TCM Security curriculum'
+        ],
+        'cat certs.txt': [
+            'Linux 100: Fundamentals            TCM Security             2026',
+            'D365 BC Developer Associate        Microsoft                2025',
+            'Certified Penetration Tester       RedTeam Hacker Academy   2023',
+            'Technical Support Fundamentals     Google / Coursera        2022'
         ]
     };
 
