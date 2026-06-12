@@ -12,8 +12,10 @@ Plain HTML + CSS + a little vanilla JavaScript. No frameworks, no build step —
 
 ```
 ├── index.html          # main portfolio page
+├── apps.html           # open-source Android apps
 ├── linux-basics.html   # notes: Linux 100 Fundamentals
 ├── 404.html            # terminal-style "command not found" page
+├── assets/img/         # app icons and images
 ├── css/style.css       # shared stylesheet (all pages)
 └── js/main.js          # nav, scroll-reveal, interactive hero terminal
 ```

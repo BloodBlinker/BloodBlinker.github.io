@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Source Apps — Robin Roy</title>
+    <meta name="description" content="Free, open-source Android apps by Robin Roy: Martial Body, a 24-week MMA training programme, and WarrantyBoxx, a warranty and expiry tracker. Fully offline, no ads, no tracking.">
+
+    <meta property="og:title" content="Open Source Apps — Robin Roy">
+    <meta property="og:description" content="Free, open-source, fully offline Android apps: Martial Body and WarrantyBoxx.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bloodblinker.github.io/apps.html">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230a0a0a'/%3E%3Ctext x='50' y='72' font-size='55' font-family='monospace' fill='%2300ff88' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a class="navbar-brand" href="index.html">&lt;RobinRoy/&gt;</a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="apps.html">Apps</a></li>
+                <li><a href="index.html#notes">Notes</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Apps -->
+    <section class="section notes-page">
+        <div class="container">
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> cd ~</a>
+
+            <span class="section-cmd">ls ~/apps/</span>
+            <h1 class="section-title">Open Source Apps</h1>
+            <p class="section-subtitle">
+                Tools I wished existed, so I built them and gave them away — free, open source, and
+                fully offline. Each one started as a real-world problem: I designed the solution,
+                planned what it needed to do, and carried it from idea to a published,
+                privacy-respecting app.
+            </p>
+
+            <div class="apps-list">
+                <article class="app-card reveal">
+                    <img src="assets/img/martial-body.png" alt="Martial Body app icon" class="app-icon" width="120" height="120" loading="lazy">
+                    <div class="app-info">
+                        <div class="app-title-row">
+                            <h3>Martial Body</h3>
+                            <span class="app-badge live">on F-Droid</span>
+                        </div>
+                        <p class="app-tagline">A free, offline 24-week MMA training programme for complete beginners.</p>
+                        <p class="app-desc">
+                            Most fitness apps dump you into an exercise library and leave you guessing — and the
+                            open-source ecosystem had no structured combat-sports programme at all. Martial Body
+                            takes you from zero fitness to walk-in-ready for your first MMA class across four
+                            phases and 24 weeks: guided sessions, built-in timers, automatic deload weeks,
+                            progress analytics. No accounts, no ads, no cloud — it can't even access the internet.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">24-week programme</span>
+                            <span class="tag">100% offline</span>
+                            <span class="tag">GPL-3.0</span>
+                            <span class="tag">Android</span>
+                        </div>
+                        <div class="app-actions">
+                            <a href="https://f-droid.org/en/packages/com.robinroy.martial_body/" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Get it on F-Droid</a>
+                            <a href="https://github.com/BloodBlinker/martial-body" target="_blank" rel="noopener" class="btn btn-ghost btn-sm"><i class="fab fa-github"></i> Source</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="app-card reveal">
+                    <img src="assets/img/warrantyboxx.png" alt="WarrantyBoxx app icon" class="app-icon" width="120" height="120" loading="lazy">
+                    <div class="app-info">
+                        <div class="app-title-row">
+                            <h3>WarrantyBoxx</h3>
+                            <span class="app-badge soon">F-Droid · coming soon</span>
+                        </div>
+                        <p class="app-tagline">Every warranty. Always remembered.</p>
+                        <p class="app-desc">
+                            People lose money every year on products that were still under warranty — receipts get
+                            lost, expiry dates are forgotten. WarrantyBoxx turns the moment of purchase into a
+                            60-second entry: track warranties, subscriptions, and renewal dates, attach receipt
+                            photos, and get reminded before anything expires. A claim assistant helps you gather
+                            what a successful claim needs. Fully offline — no account, no server, no tracking.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Expiry reminders</span>
+                            <span class="tag">Claim assistant</span>
+                            <span class="tag">100% offline</span>
+                            <span class="tag">GPL-3.0</span>
+                            <span class="tag">Android</span>
+                        </div>
+                        <div class="app-actions">
+                            <!-- TODO(Robin): swap for the real F-Droid link once published -->
+                            <span class="btn btn-primary btn-sm btn-disabled" title="Awaiting F-Droid publication"><i class="fas fa-hourglass-half"></i> F-Droid — coming soon</span>
+                            <a href="https://github.com/BloodBlinker/WarrantyBoxx-" target="_blank" rel="noopener" class="btn btn-ghost btn-sm"><i class="fab fa-github"></i> Source</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Robin Roy · Documenting my cybersecurity learning journey.</p>
+            <span class="exit-code">$ exit 0</span>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

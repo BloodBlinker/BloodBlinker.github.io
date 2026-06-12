@@ -94,7 +94,7 @@
             'martial-body   24-week MMA training programme   [on F-Droid]',
             'warrantyboxx   warranty & expiry tracker        [coming soon]',
             '',
-            'free · open source · 100% offline · no tracking'
+            'free · open source · 100% offline — try: open apps'
         ],
         'ls notes': [
             'linux-basics.md        [published]',
@@ -151,6 +151,11 @@
         if (cmd === 'open linux-basics' || cmd === 'open linux-basics.md') {
             print('opening linux-basics.html ...', 't-dim');
             window.location.href = 'linux-basics.html';
+            return;
+        }
+        if (cmd === 'open apps' || cmd === 'cd apps') {
+            print('opening apps.html ...', 't-dim');
+            window.location.href = 'apps.html';
             return;
         }
         if (cmd.indexOf('open ') === 0) {
